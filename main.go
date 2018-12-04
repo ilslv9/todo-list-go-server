@@ -1,13 +1,18 @@
 package main
 
 import (
-	"log"
-	"net/http"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	router := newRouter()
-	log.Fatal(http.ListenAndServe(":8080", router))
+	router := gin.Default()
+	router.GET("/", index)
+	router.GET("/todos", todos)
+	router.GET("/todos/:todoId", todoShow)
+	router.POST("/todos", todoCreate)
+	router.PUT("/todos/:todoId", setCompleted)
+	router.DELETE("/todos/:todoId", todoDelete)
+	router.Run(":8080")
 }
 
 
