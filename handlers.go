@@ -6,6 +6,16 @@ import (
 	"strconv"
 )
 
+func auth(ctx *gin.Context) {
+	var user User
+	if err := ctx.ShouldBindJSON(&user); err != nil {
+		panic(err)
+	}
+	token := createUser(user)
+
+	ctx.JSON(200, gin.H{"token": tokenString})
+}
+
 func todoShow(ctx *gin.Context) {
 	todoId := ctx.Param("todoId")
 	id, err := strconv.Atoi(todoId)

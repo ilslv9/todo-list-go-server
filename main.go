@@ -5,7 +5,10 @@ import (
 )
 
 func main() {
-	router := gin.Default()
+	router := gin.New()
+	router.Use(gin.Logger())
+	router.Use(gin.Recovery())
+	router.POST("/auth", auth)
 	router.GET("/", index)
 	router.GET("/todos", todos)
 	router.GET("/todos/:todoId", todoShow)
@@ -14,5 +17,3 @@ func main() {
 	router.DELETE("/todos/:todoId", todoDelete)
 	router.Run(":8080")
 }
-
-
